@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
+  <title>Document</title>
+</head>
+<body>
+  <input type="file" multiple>
+  <button>Enviar</button>
+
+  <script>
+    const input = document.querySelector("input");
+    const button = document.querySelector("button");
+
+    button.addEventListener("click", handleClick);
+
+    const options = {
+      headers: {
+        "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOlwvXC9sb2NhbGhvc3RcL3dwX3JhbmVrIiwiaWF0IjoxNjAzNTU3MTM0LCJuYmYiOjE2MDM1NTcxMzQsImV4cCI6MTYwMzY0MzUzNCwiZGF0YSI6eyJ1c2VyIjp7ImlkIjoiMSJ9fX0.WHIRWfKaJYZULPel5xyVPbo9fL6aArbaZSzleYBil2k"
+      }
+    }
+
+    function handleClick() {
+      const files = input.files;
+      const form = new FormData();
+
+      for (let i = 0; i < files.length; i++) {
+        form.append(files[i].name, files[i]);
+      }
+
+      form.append("nome", "Notebook DELL")
+      form.append("descricao", "Processador Intel Geração 7")
+      form.append("preco", "5.900,00")
+  
+      axios.post("http://localhost/wp_ranek/wp-json/api/produto", form, options);
+    }
+
+  </script>
+</body>
+</html>
